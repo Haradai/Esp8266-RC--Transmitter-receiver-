@@ -7,4 +7,4 @@ A low cost solution for communication in RC devices.
 
 :This is still in development(not completely working), please help! :)
 
-The board I am working on is the Wemos D1 mini V2
+The board I am working on is the Wemos D1 mini V2 but it may also work on other boards. 
