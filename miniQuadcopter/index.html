@@ -28,8 +28,8 @@
     }
     function touchstartR(ev){
         ev.preventDefault();
-        var touch = ev.touches[1]; // it will be necessary to hold the left joystick to be able to use this one
-        roll = parseInt(touch.clientX)-CanvRXcent; //("A" represents delta) this is the position relative to the center of the canvas
+        var touch = ev.touches[1]; 
+        roll = parseInt(touch.clientX)-CanvRXcent; 
         pitch = parseInt(touch.clientY)-CanvRYcent;
         drawjoystickR();
         sendata();
@@ -50,7 +50,7 @@
     function touchstartL(ev){
         ev.preventDefault();
         var touch = ev.touches[0];
-        jaw = parseInt(touch.clientX)-CanvLXcent; //("A" represents delta) this is the position relative to the center of the canvas
+        jaw = parseInt(touch.clientX)-CanvLXcent; 
         throttle = parseInt(touch.clientY)-CanvLYcent;
         drawjoystickL();
         sendata();
@@ -100,7 +100,7 @@
        xhr.send(data);
         
 
-        //$.post(192.168.4.1,{throttle: "throttle", pitch: "pitch", roll: "roll", jaw: "jaw"});
+        
     }
 
 </script>
