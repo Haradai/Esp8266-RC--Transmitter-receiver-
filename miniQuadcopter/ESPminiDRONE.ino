@@ -6,8 +6,8 @@
 #include <ArduinoJson.h>
 
 //defining constants
-const char *ssid = "LaMorella-Wifi ;)";
-const char *password = "MRGGMPeselmejor";
+const char *ssid = "------------------";
+const char *password = "----------------------";
 const char *domain = "controller";
 //here we are going to write our webpage:
 const char *html = "<!DOCTYPE html>"
