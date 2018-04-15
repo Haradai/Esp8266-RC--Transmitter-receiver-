@@ -2,29 +2,30 @@
 <html>
 
 <script>
-
     var throttle, pitch, roll, jaw;
     var LX,LY,RX,RY; //defining touching positions in each canvas
     var CanvLXcent, CanvLYcent,CanvRXcent,CanvRYcent;
-
     function init(){
         canvasright = document.getElementById('canvas-right');
         canvasleft = document.getElementById('canvas-left');
         div = document.getElementById('controls');
-
         canvasleft.addEventListener('touchstart', touchstartL); 
         canvasleft.addEventListener('touchmove', touchmoveL); 
-
         canvasright.addEventListener('touchstart', touchstartR); 
         canvasright.addEventListener('touchmove', touchmoveR); 
         canvasright.addEventListener('touchend', touchendR); 
-
         CanvLXcent = div.offsetLeft + 200;
         CanvLYcent = div.offsetTop + 200;
-
         CanvRXcent = div.offsetWidth - 200;
         CanvRYcent = div.offsetTop + 200;
 
+        setInterval(sendata, 33.3);
+
+        //var text = document.getElementById('ip').value;
+        var ipValue = "ws://controller.local:81"; 
+        connection = new WebSocket(ipValue);  
+        console.log("hey");
+        
     }
     function touchstartR(ev){
         ev.preventDefault();
@@ -32,9 +33,6 @@
         roll = parseInt(touch.clientX)-CanvRXcent; 
         pitch = parseInt(touch.clientY)-CanvRYcent;
         drawjoystickR();
-        sendata();
-
-
     }
     function touchmoveR(ev){
         ev.preventDefault();
@@ -42,10 +40,6 @@
         roll = parseInt(touch.clientX)-CanvRXcent;
         pitch = parseInt(touch.clientY)-CanvRYcent;
         drawjoystickR();
-        sendata();
-
-
-
     }
     function touchstartL(ev){
         ev.preventDefault();
@@ -53,8 +47,6 @@
         jaw = parseInt(touch.clientX)-CanvLXcent; 
         throttle = parseInt(touch.clientY)-CanvLYcent;
         drawjoystickL();
-        sendata();
-
     }
     function touchmoveL(ev){
         ev.preventDefault();
@@ -62,8 +54,6 @@
         jaw = parseInt(touch.clientX)-CanvLXcent;
         throttle = parseInt(touch.clientY)-CanvLYcent;
         drawjoystickL();
-        sendata();
-
     }
     function drawjoystickR(){
         if (canvasright.getContext) {
@@ -71,7 +61,6 @@
             ctx.clearRect(0,0,400,400);
             ctx.fillRect(128+roll, 128+pitch, 150, 150);
         }
-
     }
     function drawjoystickL(){
         if (canvasleft.getContext) {
@@ -84,7 +73,6 @@
         pitch=0;
         roll=0;
         drawjoystickR();
-
     }
     function sendata(){
        var data = JSON.stringify({
@@ -92,17 +80,10 @@
         pitch: pitch,
         jaw: jaw,
         roll: roll});
-
-       var url = "http://192.168.4.1/";
-       
-       var xhr = new XMLHttpRequest();
-       xhr.open("POST",url);
-       xhr.send(data);
+       connection.send(data); 
         
-
         
     }
-
 </script>
 <head>
     <title>ESP8266 miniDrone Controller</title>
